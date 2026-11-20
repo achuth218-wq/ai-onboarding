@@ -1,0 +1,6 @@
+These JSON Schema snapshots were exported with `kongctl explain RESOURCE --output json`
+from Kong's official kongctl 1.28.4 release, downloaded and checksum-verified on 2026-11-21.
+Upstream: https://github.com/Kong/kongctl/tree/v1.28.4
+The upstream license is included in LICENSE in this directory.
+The schema snapshot is used for offline structural validation only. Live Konnect
+planning remains the authority for entitlement, runtime and reference validation.

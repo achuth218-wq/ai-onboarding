@@ -1,0 +1,19 @@
+{
+  "kongctl": {
+    "version": "1.28.4",
+    "sha256": {
+      "kongctl_darwin_amd64.zip": "dbc2bb6b5ae380b2b7f428700185f0a1793095cb9323d5fb86f1a32b03d108c5",
+      "kongctl_darwin_arm64.zip": "d49eaacb6a01b54bb78a2d69237d23a2b819a564e1c624da4120ab5b720ca084",
+      "kongctl_linux_amd64.zip": "6e7292ac339be757b36581d511f67f676c8cad87a00b42d0f3678679f25f403e",
+      "kongctl_linux_arm64.zip": "7191b570a997c3a16ae540419a4e592f7d5a30634eb1f134f111f1244fc99860",
+      "kongctl_windows_amd64.zip": "a69902bb58fbc84ec94b0d28507308b9e68de07374e24e4538122a1ca2623bba",
+      "kongctl_windows_arm64.zip": "18e449b7e837d1a52ee578c095c11e73cbc0ad30b8d9609a9645fa6ff639eb8a"
+    }
+  },
+  "github_actions": {
+    "actions/checkout": "11d5960a326750d5838078e36cf38b85af677262",
+    "actions/setup-python": "a26af69be951a213d495a4c3e4e4022e16d87065",
+    "actions/upload-artifact": "ea165f8d65b6e75b540449e92b4886f43607fa02",
+    "actions/download-artifact": "d3f86a106a0bac45b974a628896c90dbdf5c8093"
+  }
+}

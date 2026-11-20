@@ -1,0 +1,103 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "product": {
+      "const": "kong-ai-gateway"
+    },
+    "runtime_version": {
+      "type": "string",
+      "pattern": "^2\\.3\\.[0-9]+$"
+    },
+    "region": {
+      "enum": [
+        "us",
+        "eu",
+        "au",
+        "me",
+        "in",
+        "sg"
+      ]
+    },
+    "gateway_id": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$"
+    },
+    "namespace": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]{1,50}$"
+    },
+    "auth_strategy_id": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$"
+    },
+    "proxy_url": {
+      "type": "string",
+      "minLength": 1
+    },
+    "consumer_groups": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 0,
+      "uniqueItems": true
+    },
+    "policy_profiles": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "minLength": 1
+        },
+        "minItems": 0,
+        "uniqueItems": true
+      }
+    },
+    "upstreams": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "smoke_auth_header": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9-]*$"
+    },
+    "minimum_nodes": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "heartbeat_max_age_seconds": {
+      "type": "integer",
+      "minimum": 30,
+      "maximum": 600
+    },
+    "readiness_timeout_seconds": {
+      "type": "integer",
+      "minimum": 30,
+      "maximum": 1200
+    }
+  },
+  "required": [
+    "product",
+    "runtime_version",
+    "region",
+    "gateway_id",
+    "namespace",
+    "auth_strategy_id",
+    "proxy_url",
+    "consumer_groups",
+    "policy_profiles",
+    "upstreams",
+    "smoke_auth_header",
+    "minimum_nodes",
+    "heartbeat_max_age_seconds",
+    "readiness_timeout_seconds"
+  ],
+  "additionalProperties": false
+}

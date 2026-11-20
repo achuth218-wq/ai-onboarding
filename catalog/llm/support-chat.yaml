@@ -1,0 +1,16 @@
+apiVersion: platform.example.com/v1alpha1
+kind: LLM
+metadata:
+  name: support-chat
+  owner: support-platform
+spec:
+  path: /llm/support
+  policy_profile: llm-standard
+  provider: openai
+  model: gpt-4o
+  credential_env: AIOPS_LLM_AUTH_HEADER
+  credential_header: Authorization
+  provider_options: {}
+  smoke:
+    prompt: Reply with the word ready.
+    stream: true

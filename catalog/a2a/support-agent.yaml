@@ -1,0 +1,13 @@
+apiVersion: platform.example.com/v1alpha1
+kind: A2A
+metadata:
+  name: support-agent
+  owner: support-platform
+spec:
+  path: /a2a/support
+  policy_profile: a2a-standard
+  upstream_ref: support-agent
+  protocol_version: 0.3.0
+  smoke:
+    expected_skills:
+    - answer_support_question

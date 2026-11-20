@@ -1,0 +1,15 @@
+apiVersion: platform.example.com/v1alpha1
+kind: MCP
+metadata:
+  name: ticketing-tools
+  owner: support-platform
+spec:
+  path: /mcp/ticketing
+  policy_profile: mcp-standard
+  upstream_ref: ticketing-mcp
+  mode: passthrough-listener
+  protocol_version: '2025-11-25'
+  smoke:
+    expected_tools:
+    - ticket_get
+    - ticket_search

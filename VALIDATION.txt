@@ -1,0 +1,16 @@
+Validation performed locally on 2026-11-21.
+
+PASS: 25 Python unittest tests.
+PASS: Input and native Kong schema validation for 3 resources across 3 environments.
+PASS: GitHub Actions syntax and workflow checks with actionlint 1.7.12.
+PASS: Reproducible bundle build and integrity verification.
+PASS: Official kongctl 1.28.4 download checksum and executable version.
+
+Protocol tests use a local mock HTTP gateway. Kong native schemas were exported
+from the official pinned CLI. No Konnect account credentials or real upstream
+endpoints were supplied, so live Konnect planning/deployment, permissions,
+entitlement checks, real policy behavior and production traffic were not tested.
+
+The implementation is a runnable onboarding baseline. Shared identity/policy
+resources and compatible gateway infrastructure are prerequisites documented in
+README.md. Recovery is reviewed create/update, not transactional rollback.

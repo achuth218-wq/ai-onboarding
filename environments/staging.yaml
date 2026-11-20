@@ -1,0 +1,20 @@
+product: kong-ai-gateway
+runtime_version: 2.3.1
+region: us
+gateway_id: 00000000-0000-0000-0000-000000000000
+namespace: ai-onboarding-staging
+auth_strategy_id: 00000000-0000-0000-0000-000000000000
+proxy_url: https://ai-staging.example.invalid
+consumer_groups:
+- ai-onboarding-testers
+policy_profiles:
+  llm-standard: []
+  mcp-standard: []
+  a2a-standard: []
+upstreams:
+  ticketing-mcp: https://tools-staging.example.invalid/mcp
+  support-agent: https://agent-staging.example.invalid
+smoke_auth_header: Authorization
+minimum_nodes: 2
+heartbeat_max_age_seconds: 120
+readiness_timeout_seconds: 300

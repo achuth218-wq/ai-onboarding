@@ -1,0 +1,16 @@
+flowchart TD
+    PR["Catalog or environment pull request"] --> CI["Strict input schemas + native Kong schemas + tests"]
+    CI --> Preview["Preview configuration artifact"]
+    Preview --> Merge["Review and merge to main"]
+    Merge --> Bundle["Build one immutable release bundle"]
+    Bundle --> Dev["Dev: plan, recheck, apply, readiness, smoke tests"]
+    Dev --> Stage["Staging: plan, approval, recheck, apply, verify"]
+    Stage --> Plan["Production plan and digest"]
+    Plan --> Approval["GitHub production environment approval"]
+    Approval --> Recheck{"Fresh plan matches reviewed digest?"}
+    Recheck -->|No| Stop["Stop and request a new reviewed run"]
+    Recheck -->|Yes| Apply["Apply configuration"]
+    Apply --> Verify["All data planes converge + protocol smoke tests"]
+    Verify --> Receipt["Deployment receipt"]
+    Recovery["Manual recovery from a prior successful release"] --> Plan
+    Drift["Daily read-only drift workflow"] --> Report["Diff summary; no mutation"]
