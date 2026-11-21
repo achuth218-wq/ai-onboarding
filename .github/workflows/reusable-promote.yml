@@ -64,13 +64,13 @@ jobs:
         merge-multiple: true
     - name: Check identical bundle, preceding-stage evidence and current target configuration
       run: python scripts/promotion_gate.py verify
-    - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+    - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
       with:
         name: ai-release
         path: build/release/
         retention-days: 90
         if-no-files-found: error
-    - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+    - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
       with:
         name: promotion-context
         path: build/context/context.json
@@ -105,7 +105,7 @@ jobs:
         path: build/deployment
     - name: Record only verified deployment evidence
       run: python scripts/promotion_gate.py receipt
-    - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+    - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
       with:
         name: promotion-${{ inputs.lane }}-${{ inputs.stage }}
         path: build/promotion/promotion.json
