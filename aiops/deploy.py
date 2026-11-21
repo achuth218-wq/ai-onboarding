@@ -7,15 +7,7 @@ from pathlib import Path
 
 from .build import deployment_inputs, verify_bundle
 from .common import Error, digest, required, version, write_json
-
-
-def load_secret_values():
-    values = json.loads(os.environ.get("AIOPS_SECRET_VALUES", "{}"))
-    required(isinstance(values, dict), "AIOPS_SECRET_VALUES must be a JSON object")
-    for key, value in values.items():
-        required(key.startswith("AIOPS_") and key not in ("AIOPS_SECRET_VALUES", "AIOPS_KONGCTL")
-                 and isinstance(value, str) and value, "Invalid secret mapping")
-        os.environ[key] = value
+from .policy import selected
 
 
 def command(arguments, env, json_output=False):
@@ -138,9 +130,8 @@ def wait_ready(env):
 def apply_plan(bundle, environment, expected_digest, output):
     from .smoke import smoke
     env = deployment_inputs(bundle, environment)
-    load_secret_values()
     resources = json.loads((Path(bundle) / "catalog.json").read_text())
-    for resource in resources:
+    for resource in selected(resources, env):
         if resource["kind"] == "LLM":
             required(os.environ.get(resource["spec"]["credential_env"]),
                      "A required model-provider credential is missing")

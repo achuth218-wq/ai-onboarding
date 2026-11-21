@@ -11,3 +11,7 @@ spec:
   smoke:
     expected_skills:
     - answer_support_question
+placement:
+  cloud: aws
+  exposure: internal
+  data_classification: internal

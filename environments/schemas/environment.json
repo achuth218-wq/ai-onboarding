@@ -1,0 +1,196 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "product": {
+      "const": "kong-ai-gateway"
+    },
+    "runtime_version": {
+      "type": "string",
+      "pattern": "^2\\.3\\.[0-9]+$"
+    },
+    "region": {
+      "const": "us"
+    },
+    "gateway_id": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$"
+    },
+    "namespace": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]{1,50}$"
+    },
+    "auth_strategy_id": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$"
+    },
+    "proxy_url": {
+      "type": "string",
+      "minLength": 1
+    },
+    "consumer_groups": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 0,
+      "uniqueItems": true
+    },
+    "policy_profiles": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "minLength": 1
+        },
+        "minItems": 0,
+        "uniqueItems": true
+      }
+    },
+    "upstreams": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "smoke_auth_header": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9-]*$"
+    },
+    "minimum_nodes": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "heartbeat_max_age_seconds": {
+      "type": "integer",
+      "minimum": 30,
+      "maximum": 600
+    },
+    "readiness_timeout_seconds": {
+      "type": "integer",
+      "minimum": 30,
+      "maximum": 1200
+    },
+    "cloud": {
+      "enum": [
+        "aws",
+        "azure",
+        "gcp"
+      ]
+    },
+    "exposure": {
+      "enum": [
+        "internal",
+        "external"
+      ]
+    },
+    "stage": {
+      "enum": [
+        "dev",
+        "test",
+        "preprod",
+        "prod"
+      ]
+    },
+    "enabled": {
+      "type": "boolean"
+    },
+    "cloud_scope": {
+      "type": "string",
+      "minLength": 1
+    },
+    "allowed_upstream_hosts": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z0-9][a-z0-9.-]*[a-z0-9]$"
+      },
+      "uniqueItems": true
+    },
+    "approved_providers": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "allowed_data_classes": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "public",
+          "internal",
+          "confidential",
+          "restricted"
+        ]
+      },
+      "uniqueItems": true
+    },
+    "controls": {
+      "type": "object",
+      "properties": {
+        "private_ingress_verified": {
+          "type": "boolean"
+        },
+        "public_edge_verified": {
+          "type": "boolean"
+        },
+        "egress_restricted": {
+          "type": "boolean"
+        },
+        "request_limits": {
+          "type": "boolean"
+        },
+        "audit_redaction": {
+          "type": "boolean"
+        },
+        "upstream_tls_verified": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "private_ingress_verified",
+        "public_edge_verified",
+        "egress_restricted",
+        "request_limits",
+        "audit_redaction",
+        "upstream_tls_verified"
+      ],
+      "additionalProperties": false
+    },
+    "security_review_url": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "product",
+    "runtime_version",
+    "region",
+    "gateway_id",
+    "namespace",
+    "auth_strategy_id",
+    "proxy_url",
+    "consumer_groups",
+    "policy_profiles",
+    "upstreams",
+    "smoke_auth_header",
+    "minimum_nodes",
+    "heartbeat_max_age_seconds",
+    "readiness_timeout_seconds",
+    "cloud",
+    "exposure",
+    "stage",
+    "enabled",
+    "cloud_scope",
+    "allowed_upstream_hosts",
+    "approved_providers",
+    "allowed_data_classes",
+    "controls",
+    "security_review_url"
+  ],
+  "additionalProperties": false
+}

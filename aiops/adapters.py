@@ -2,6 +2,7 @@
 from copy import deepcopy
 
 from .common import Tagged, required
+from .policy import selected
 
 
 def common(resource, env):
@@ -14,7 +15,8 @@ def common(resource, env):
         "name": meta["name"],
         "display_name": meta["name"],
         "enabled": True,
-        "labels": {"owner": meta["owner"], "pipeline": "github-actions"},
+        "labels": {"owner": meta["owner"], "pipeline": "github-actions",
+                   "cloud": env["cloud"], "exposure": env["exposure"], "stage": env["stage"]},
         "ai_gateway": Tagged("!lookup", {"id": env["gateway_id"]}),
         "access": access,
         "policies": env["policy_profiles"][spec["policy_profile"]],
@@ -73,7 +75,7 @@ ADAPTERS = {"LLM": llm, "MCP": mcp, "A2A": a2a}
 
 def render(resources, env):
     result = {"_defaults": {"kongctl": {"namespace": env["namespace"]}}}
-    for resource in resources:
+    for resource in selected(resources, env):
         for kind, entries in ADAPTERS[resource["kind"]](resource, env).items():
             result.setdefault(kind, []).extend(entries)
     return result

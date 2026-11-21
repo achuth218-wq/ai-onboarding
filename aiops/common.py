@@ -28,7 +28,8 @@ StrictLoader.add_constructor(yaml.resolver.BaseResolver.DEFAULT_MAPPING_TAG, map
 
 
 def read_yaml(path):
-    return yaml.load(Path(path).read_text(), Loader=StrictLoader)
+    # StrictLoader subclasses SafeLoader and adds duplicate-key rejection only.
+    return yaml.load(Path(path).read_text(), Loader=StrictLoader)  # nosec B506
 
 
 def canonical(value):

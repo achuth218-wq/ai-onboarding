@@ -1,0 +1,127 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="1100" viewBox="0 0 1440 1100" role="img" aria-labelledby="title desc"><title id="title">Independent AI promotions across AWS, Azure and GCP</title><desc id="desc">Six issue forms feed validated draft pull requests and security checks. An immutable bundle has separate manual triggers for dev, test, preprod and prod across six isolated cloud and exposure lanes. All 24 targets use Konnect US. Successful prior-stage evidence is required; no stage triggers the next.</desc><defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 Z" fill="#75839b"/></marker></defs><rect width="1440" height="1100" fill="#f4f7fc"/><style>text{font-family:Arial,Helvetica,sans-serif} .title{font-size:34px;font-weight:700;fill:#15253c}.sub{font-size:18px;fill:#52627a}.label{font-size:20px;font-weight:700;fill:#15253c}.body{font-size:16px;fill:#43546d}.small{font-size:14px;fill:#52627a}.pill{font-size:14px;font-weight:700;fill:#fff}</style>
+<text x="48" y="65" class="title">Independent AI promotions across AWS, Azure and GCP</text>
+<text x="48" y="98" class="sub">6 issue forms  •  6 isolated lanes  •  24 deployment targets  •  Konnect region: US</text>
+<rect x="48" y="140" width="400" height="116" rx="14" fill="#fff" stroke="#dce4f0"/>
+<rect x="64" y="156" width="28" height="28" rx="7" fill="#224868" stroke="#224868"/>
+<text x="73" y="176" class="pill">1</text>
+<text x="104" y="177" class="label">Submit an issue form</text>
+<text x="68" y="208" class="body">LLM / MCP / A2A × internal / external</text>
+<text x="68" y="231" class="body">Select gateway cloud and approved inputs</text>
+<rect x="520" y="140" width="400" height="116" rx="14" fill="#fff" stroke="#dce4f0"/>
+<rect x="536" y="156" width="28" height="28" rx="7" fill="#224868" stroke="#224868"/>
+<text x="545" y="176" class="pill">2</text>
+<text x="576" y="177" class="label">Validate the request</text>
+<text x="540" y="208" class="body">Strict schemas, host policy, data class</text>
+<text x="540" y="231" class="body">Scan candidate files; issue text stays data</text>
+<rect x="992" y="140" width="400" height="116" rx="14" fill="#fff" stroke="#dce4f0"/>
+<rect x="1008" y="156" width="28" height="28" rx="7" fill="#224868" stroke="#224868"/>
+<text x="1017" y="176" class="pill">3</text>
+<text x="1048" y="177" class="label">Review the draft PR</text>
+<text x="1012" y="208" class="body">Catalog + scoped upstream mappings</text>
+<text x="1012" y="231" class="body">Required CI checks and code-owner review</text>
+<path d="M448,198 L510,198" fill="none" stroke="#75839b" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M920,198 L982,198" fill="none" stroke="#75839b" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M1192,256 L1192,280 L248,280 L248,300" fill="none" stroke="#75839b" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="48" y="310" width="400" height="116" rx="14" fill="#fff" stroke="#dce4f0"/>
+<rect x="64" y="326" width="28" height="28" rx="7" fill="#224868" stroke="#224868"/>
+<text x="73" y="346" class="pill">4</text>
+<text x="104" y="347" class="label">Run the release security gate</text>
+<text x="68" y="378" class="body">Gitleaks • Bandit • dependency audit</text>
+<text x="68" y="401" class="body">Pinned tools, workflow lint, tests, schemas</text>
+<rect x="520" y="310" width="400" height="116" rx="14" fill="#fff" stroke="#dce4f0"/>
+<rect x="536" y="326" width="28" height="28" rx="7" fill="#224868" stroke="#224868"/>
+<text x="545" y="346" class="pill">5</text>
+<text x="576" y="347" class="label">Build one immutable bundle</text>
+<text x="540" y="378" class="body">Scope each resource to its selected lane</text>
+<text x="540" y="401" class="body">Separate gateway IDs, namespaces, secrets</text>
+<rect x="992" y="310" width="400" height="116" rx="14" fill="#fff" stroke="#dce4f0"/>
+<rect x="1008" y="326" width="28" height="28" rx="7" fill="#224868" stroke="#224868"/>
+<text x="1017" y="346" class="pill">6</text>
+<text x="1048" y="347" class="label">Trigger each stage separately</text>
+<text x="1012" y="378" class="body">Same release ID + prior-stage receipt</text>
+<text x="1012" y="401" class="body">Plan → approval → apply → verification</text>
+<path d="M448,368 L510,368" fill="none" stroke="#75839b" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M920,368 L982,368" fill="none" stroke="#75839b" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="48" y="481" class="label">DEPLOYMENT TARGETS</text>
+<text x="48" y="508" class="body">Dev → test → preprod → prod: separate manual triggers. The next stage requires verified predecessor evidence.</text>
+<rect x="48" y="538" width="400" height="350" rx="14" fill="#fff" stroke="#dce4f0"/>
+<rect x="48" y="538" width="400" height="48" rx="14" fill="#b66c16" stroke="#b66c16"/>
+<text x="68" y="570" class="pill">AWS  /  scoped cloud boundary</text>
+<rect x="64" y="605" width="368" height="118" rx="10" fill="#e9f6f4" stroke="#e9f6f4"/>
+<text x="80" y="633" class="label">INTERNAL</text>
+<text x="80" y="655" class="small">Private ingress</text>
+<rect x="74" y="670" width="84" height="33" rx="7" fill="#176f72" stroke="#176f72"/>
+<text x="83" y="692" class="pill">DEV</text>
+<rect x="162" y="670" width="84" height="33" rx="7" fill="#176f72" stroke="#176f72"/>
+<text x="171" y="692" class="pill">TEST</text>
+<rect x="250" y="670" width="84" height="33" rx="7" fill="#176f72" stroke="#176f72"/>
+<text x="259" y="692" class="pill">PREPROD</text>
+<rect x="338" y="670" width="84" height="33" rx="7" fill="#176f72" stroke="#176f72"/>
+<text x="347" y="692" class="pill">PROD</text>
+<rect x="64" y="741" width="368" height="118" rx="10" fill="#f3effb" stroke="#f3effb"/>
+<text x="80" y="769" class="label">EXTERNAL</text>
+<text x="80" y="791" class="small">Authenticated public edge + WAF</text>
+<rect x="74" y="806" width="84" height="33" rx="7" fill="#694cac" stroke="#694cac"/>
+<text x="83" y="828" class="pill">DEV</text>
+<rect x="162" y="806" width="84" height="33" rx="7" fill="#694cac" stroke="#694cac"/>
+<text x="171" y="828" class="pill">TEST</text>
+<rect x="250" y="806" width="84" height="33" rx="7" fill="#694cac" stroke="#694cac"/>
+<text x="259" y="828" class="pill">PREPROD</text>
+<rect x="338" y="806" width="84" height="33" rx="7" fill="#694cac" stroke="#694cac"/>
+<text x="347" y="828" class="pill">PROD</text>
+<rect x="520" y="538" width="400" height="350" rx="14" fill="#fff" stroke="#dce4f0"/>
+<rect x="520" y="538" width="400" height="48" rx="14" fill="#176aac" stroke="#176aac"/>
+<text x="540" y="570" class="pill">AZURE  /  scoped cloud boundary</text>
+<rect x="536" y="605" width="368" height="118" rx="10" fill="#e9f6f4" stroke="#e9f6f4"/>
+<text x="552" y="633" class="label">INTERNAL</text>
+<text x="552" y="655" class="small">Private ingress</text>
+<rect x="546" y="670" width="84" height="33" rx="7" fill="#176f72" stroke="#176f72"/>
+<text x="555" y="692" class="pill">DEV</text>
+<rect x="634" y="670" width="84" height="33" rx="7" fill="#176f72" stroke="#176f72"/>
+<text x="643" y="692" class="pill">TEST</text>
+<rect x="722" y="670" width="84" height="33" rx="7" fill="#176f72" stroke="#176f72"/>
+<text x="731" y="692" class="pill">PREPROD</text>
+<rect x="810" y="670" width="84" height="33" rx="7" fill="#176f72" stroke="#176f72"/>
+<text x="819" y="692" class="pill">PROD</text>
+<rect x="536" y="741" width="368" height="118" rx="10" fill="#f3effb" stroke="#f3effb"/>
+<text x="552" y="769" class="label">EXTERNAL</text>
+<text x="552" y="791" class="small">Authenticated public edge + WAF</text>
+<rect x="546" y="806" width="84" height="33" rx="7" fill="#694cac" stroke="#694cac"/>
+<text x="555" y="828" class="pill">DEV</text>
+<rect x="634" y="806" width="84" height="33" rx="7" fill="#694cac" stroke="#694cac"/>
+<text x="643" y="828" class="pill">TEST</text>
+<rect x="722" y="806" width="84" height="33" rx="7" fill="#694cac" stroke="#694cac"/>
+<text x="731" y="828" class="pill">PREPROD</text>
+<rect x="810" y="806" width="84" height="33" rx="7" fill="#694cac" stroke="#694cac"/>
+<text x="819" y="828" class="pill">PROD</text>
+<rect x="992" y="538" width="400" height="350" rx="14" fill="#fff" stroke="#dce4f0"/>
+<rect x="992" y="538" width="400" height="48" rx="14" fill="#2e7763" stroke="#2e7763"/>
+<text x="1012" y="570" class="pill">GCP  /  scoped cloud boundary</text>
+<rect x="1008" y="605" width="368" height="118" rx="10" fill="#e9f6f4" stroke="#e9f6f4"/>
+<text x="1024" y="633" class="label">INTERNAL</text>
+<text x="1024" y="655" class="small">Private ingress</text>
+<rect x="1018" y="670" width="84" height="33" rx="7" fill="#176f72" stroke="#176f72"/>
+<text x="1027" y="692" class="pill">DEV</text>
+<rect x="1106" y="670" width="84" height="33" rx="7" fill="#176f72" stroke="#176f72"/>
+<text x="1115" y="692" class="pill">TEST</text>
+<rect x="1194" y="670" width="84" height="33" rx="7" fill="#176f72" stroke="#176f72"/>
+<text x="1203" y="692" class="pill">PREPROD</text>
+<rect x="1282" y="670" width="84" height="33" rx="7" fill="#176f72" stroke="#176f72"/>
+<text x="1291" y="692" class="pill">PROD</text>
+<rect x="1008" y="741" width="368" height="118" rx="10" fill="#f3effb" stroke="#f3effb"/>
+<text x="1024" y="769" class="label">EXTERNAL</text>
+<text x="1024" y="791" class="small">Authenticated public edge + WAF</text>
+<rect x="1018" y="806" width="84" height="33" rx="7" fill="#694cac" stroke="#694cac"/>
+<text x="1027" y="828" class="pill">DEV</text>
+<rect x="1106" y="806" width="84" height="33" rx="7" fill="#694cac" stroke="#694cac"/>
+<text x="1115" y="828" class="pill">TEST</text>
+<rect x="1194" y="806" width="84" height="33" rx="7" fill="#694cac" stroke="#694cac"/>
+<text x="1203" y="828" class="pill">PREPROD</text>
+<rect x="1282" y="806" width="84" height="33" rx="7" fill="#694cac" stroke="#694cac"/>
+<text x="1291" y="828" class="pill">PROD</text>
+<text x="48" y="930" class="label">Each target has its own: gateway • namespace • GitHub Environment • tokens • runner group</text>
+<text x="48" y="965" class="body">No automatic stage chaining. One dispatch deploys one cloud / exposure / stage; each has its own approval.</text>
+<text x="48" y="991" class="body">Promotion verifies source artifact identity, bundle digest, lane, predecessor stage and successful deployment receipts.</text>
+<rect x="48" y="1022" width="1344" height="45" rx="9" fill="#e7edf5" stroke="#e7edf5"/>
+<text x="65" y="1051" class="small">Build release creates the bundle only. Dev, test, preprod and prod are started independently from GitHub Actions or the CLI.</text>
+</svg>

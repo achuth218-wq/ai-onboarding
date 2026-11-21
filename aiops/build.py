@@ -9,6 +9,7 @@ import yaml
 
 from .adapters import render
 from .common import Dumper, Error, digest, plain, read_yaml, required, version, write_json
+from .policy import TARGETS, enabled_lanes, lane, live_controls, selected, validate_resource_policy
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -34,15 +35,17 @@ def load_source(root):
     root = Path(root)
     resources = [read_yaml(p) for p in sorted((root / "catalog").rglob("*.yaml"))]
     required(resources, "Catalog is empty")
-    names, routes = set(), []
+    names, routes = set(), {}
     for resource in resources:
         validate_schema(resource, "onboarding.json")
         name, path = resource["metadata"]["name"], resource["spec"]["path"]
+        resource_lane = lane(resource["placement"])
+        lane_routes = routes.setdefault(resource_lane, [])
         required(name not in names, f"Duplicate resource name: {name}")
         names.add(name)
         required(not any(path == p or path.startswith(p + "/") or p.startswith(path + "/")
-                         for p in routes), f"Overlapping route: {path}")
-        routes.append(path)
+                         for p in lane_routes), f"Overlapping route: {path}")
+        lane_routes.append(path)
         spec = resource["spec"]
         if resource["kind"] == "MCP":
             required(spec["mode"] != "conversion-listener" or spec.get("tools"), "Conversion MCP requires tools")
@@ -50,20 +53,30 @@ def load_source(root):
             required(name + "-provider" not in names, "Generated provider name collides")
             names.add(name + "-provider")
     environments = {}
-    for name in ("dev", "staging", "prod"):
+    gateway_ids, namespaces = set(), set()
+    required({p.stem for p in (root / "environments").glob("*.yaml")} == set(TARGETS),
+             "Environment inventory must contain exactly the 24 cloud/exposure/stage targets")
+    for name in TARGETS:
         env = read_yaml(root / "environments" / (name + ".yaml"))
         validate_schema(env, "environment.json")
+        required(name == lane(env) + "-" + env["stage"], "Environment placement does not match its filename")
+        required(env["namespace"] not in namespaces, "Namespaces must be isolated per target")
+        namespaces.add(env["namespace"])
+        if env["gateway_id"] != "00000000-0000-0000-0000-000000000000":
+            required(env["gateway_id"] not in gateway_ids, "Gateway IDs must be isolated per target")
+            gateway_ids.add(env["gateway_id"])
         required(env["product"] == "kong-ai-gateway", "Kong Gateway 2.3 is unsupported; use AI Gateway 2.3")
         required(version(env["runtime_version"])[:2] == (2, 3), "This adapter is certified for AI Gateway 2.3.x")
         validate_url(env["proxy_url"])
         for url in env["upstreams"].values():
             validate_url(url)
-        for resource in resources:
-            spec = resource["spec"]
-            required(spec["policy_profile"] in env["policy_profiles"], "Missing policy profile")
-            required(spec.get("upstream_ref", "") in env["upstreams"] or resource["kind"] == "LLM",
-                     "Missing environment upstream")
+        for resource in selected(resources, env):
+            validate_resource_policy(resource, env)
         environments[name] = env
+    enabled_lanes(resources, environments)
+    for env in environments.values():
+        if env["enabled"]:
+            validate_live_environment(env)
     return resources, environments
 
 
@@ -113,10 +126,8 @@ def verify_bundle(bundle):
     return expected
 
 
-def deployment_inputs(bundle, environment):
-    verify_bundle(bundle)
-    required(environment in ("dev", "staging", "prod"), "Unknown environment")
-    env = json.loads((Path(bundle) / environment / "environment.json").read_text())
+def validate_live_environment(env):
+    live_controls(env)
     required(env["gateway_id"] != "00000000-0000-0000-0000-000000000000", "Set the real AI Gateway ID")
     required(env["auth_strategy_id"] != "00000000-0000-0000-0000-000000000000", "Set the inbound auth strategy ID")
     validate_url(env["proxy_url"], live=True)
@@ -124,4 +135,17 @@ def deployment_inputs(bundle, environment):
         validate_url(url, live=True)
     required(all(env["policy_profiles"].values()), "Every policy profile needs existing Kong policy IDs or names")
     required(env["consumer_groups"], "Configure an authorized consumer group for these routes")
+
+
+def deployment_inputs(bundle, environment):
+    verify_bundle(bundle)
+    required(environment in TARGETS, "Unknown environment")
+    env = json.loads((Path(bundle) / environment / "environment.json").read_text())
+    validate_schema(env, "environment.json")
+    required(environment == lane(env) + "-" + env["stage"], "Bundle target mismatch")
+    validate_live_environment(env)
+    resources = json.loads((Path(bundle) / "catalog.json").read_text())
+    required(selected(resources, env), "Target contains no onboarded resources")
+    for resource in selected(resources, env):
+        validate_resource_policy(resource, env)
     return env

@@ -1,0 +1,43 @@
+Validation performed locally on 2026-11-21
+
+PASS: 57 automated unittest cases on Python 3.12.14.
+  Includes all six forms across AWS/Azure/GCP (18 intake combinations), strict
+  field parsing, injection/traversal rejection, classification/host/provider
+  policy, scoped file generation, duplicate PR handling, secret-scan gating,
+  immutable artifact checks, stale plans, readiness, and mock HTTP protocols.
+  Independent promotion checks include exact predecessor stages, successful
+  main-branch source runs, artifact identity, same-release/lane/digest evidence,
+  failed or partial deployment rejection, same-stage recovery, current target
+  configuration, and rejection of incomplete legacy target inventories.
+PASS: Input and pinned native Kong schemas; 3 example resources, 24 target files.
+PASS: Every environment uses Konnect region us; all targets disabled by default.
+PASS: Build/verify, 24 scoped native configurations, all disabled by default.
+PASS: Four manual-only deploy wrappers; Build release contains no deployment job.
+PASS: Hash-enforced Python dependency installation in a Python 3.12 environment.
+PASS: Full Linux x64 Python 3.12 scanner dependency wheel resolution/download
+      with committed hashes and binary-only installation constraints.
+PASS: Runtime dependency audit: no known vulnerabilities at audit time.
+PASS: Scanner dependency audit: no known vulnerabilities after updated pins.
+PASS: Bandit 1.8.6 configured medium-or-higher severity/confidence gate.
+      Four low-severity findings remain outside the gate; reviewed subprocess
+      argument-array usage. Narrow loader/download suppressions are documented.
+PASS: Gitleaks 8.30.1 working-tree and full available Git-history scans.
+      Downloaded scanner executables over 2 MB are excluded from directory scan;
+      they are checked against committed SHA-256 release checksums instead.
+PASS: actionlint 1.7.12 and repository workflow-security policy.
+PASS: Requirements version inventories agree with hash locks.
+PASS: git diff --check.
+PASS: Architecture SVG rendered to PNG and visually inspected.
+
+Not performed:
+- No live GitHub issue/branch/PR was created. GitHub API calls were mocked,
+  including promotion run/artifact provenance reads.
+- No Actions workflow ran in GitHub; forms/flows were validated locally.
+- No Konnect/cloud deployment, network/WAF inspection or live endpoint smoke test.
+- No repository, environment or runner-group settings were changed remotely.
+
+Deployment requires compatible Konnect AI Gateway 2.3.x (not legacy Kong Gateway
+2.3), real target IDs/policies/hosts, private and public-edge infrastructure,
+protected GitHub environments, target-scoped secrets and ephemeral runner groups.
+Cloud security control flags are platform attestations, not cloud API evidence.
+See README.md and SECURITY.md for activation steps and remaining responsibilities.

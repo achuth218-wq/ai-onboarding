@@ -1,0 +1,39 @@
+name: Deploy test
+'on':
+  workflow_dispatch:
+    inputs:
+      release_run_id:
+        description: Successful Build release run ID; use the same ID through all four stages
+        required: true
+        type: string
+      lane:
+        description: Cloud/exposure lane to deploy independently
+        required: true
+        type: choice
+        options:
+        - aws-internal
+        - aws-external
+        - azure-internal
+        - azure-external
+        - gcp-internal
+        - gcp-external
+      previous_run_id:
+        description: Successful Deploy dev run ID for this same release and lane
+        required: true
+        type: string
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: ai-onboarding-${{ inputs.lane }}-writer
+  cancel-in-progress: false
+jobs:
+  promote:
+    if: github.ref == 'refs/heads/main'
+    uses: ./.github/workflows/reusable-promote.yml
+    with:
+      lane: ${{ inputs.lane }}
+      stage: test
+      release_run_id: ${{ inputs.release_run_id }}
+      previous_run_id: ${{ inputs.previous_run_id }}
+      mode: promotion

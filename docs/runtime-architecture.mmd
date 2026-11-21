@@ -1,0 +1,22 @@
+flowchart TB
+  US[Konnect US management plane]
+  Private[Internal authorized clients] --> PrivateEdge[Private ingress / no public route]
+  Public[External authorized clients] --> PublicEdge[Public edge + WAF / DDoS / request controls]
+  subgraph AWS[AWS account boundaries]
+    AI[AWS internal gateway targets]
+    AE[AWS external gateway targets]
+  end
+  subgraph Azure[Azure subscription boundaries]
+    ZI[Azure internal gateway targets]
+    ZE[Azure external gateway targets]
+  end
+  subgraph GCP[GCP project boundaries]
+    GI[GCP internal gateway targets]
+    GE[GCP external gateway targets]
+  end
+  PrivateEdge --> AI & ZI & GI
+  PublicEdge --> AE & ZE & GE
+  US -. configuration .-> AI & AE & ZI & ZE & GI & GE
+  AI & AE & ZI & ZE & GI & GE --> Egress[Approved egress + TLS + upstream identity]
+  Egress --> Services[LLM providers / MCP servers / A2A agents]
+  Separate[Each group has separate dev / test / preprod / prod gateways, secrets and ephemeral runner groups]

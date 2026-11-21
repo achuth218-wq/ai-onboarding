@@ -1,0 +1,163 @@
+name: MCP — Internal (AWS / Azure / GCP)
+description: Request internal MCP onboarding through a reviewed draft PR.
+title: '[MCP internal] '
+body:
+- type: markdown
+  attributes:
+    value: '## Internal MCP onboarding
+
+      Choose the cloud hosting the gateway data plane. This is a request for dev → test → preprod → prod in one
+      isolated lane. Konnect region is US. **Never paste secrets, personal data, or confidential prompts. Use a
+      private repository for internal infrastructure details.**
+
+
+      Internal means private gateway ingress; external means an authenticated public edge with WAF/DDoS and rate
+      controls. Cloud selection does not select an LLM provider or create cloud infrastructure. Platform allowlists
+      and network controls must be approved first.'
+- type: dropdown
+  id: resource-type
+  attributes:
+    label: Resource type
+    description: ''
+    options:
+    - MCP
+  validations:
+    required: true
+- type: dropdown
+  id: exposure
+  attributes:
+    label: Exposure
+    description: ''
+    options:
+    - internal
+  validations:
+    required: true
+- type: dropdown
+  id: cloud
+  attributes:
+    label: Cloud
+    description: Gateway hosting cloud, separate from model provider.
+    options:
+    - aws
+    - azure
+    - gcp
+  validations:
+    required: true
+- type: input
+  id: resource-name
+  attributes:
+    label: Resource name
+    description: Unique lowercase letters, digits and hyphens; 2–51 characters.
+    placeholder: support-assistant
+  validations:
+    required: true
+- type: input
+  id: owner-team
+  attributes:
+    label: Owner team
+    description: Team slug for operational ownership, not an email or token.
+    placeholder: support-platform
+  validations:
+    required: true
+- type: input
+  id: route-prefix
+  attributes:
+    label: Route prefix
+    description: Lowercase HTTPS route prefix; must not overlap another route in this lane.
+    placeholder: /mcp/support
+  validations:
+    required: true
+- type: dropdown
+  id: data-classification
+  attributes:
+    label: Data classification
+    description: Platform policy is enforced. External defaults to public only; restricted is denied by default
+      everywhere.
+    options:
+    - public
+    - internal
+    - confidential
+    - restricted
+  validations:
+    required: true
+- type: input
+  id: development-upstream-url
+  attributes:
+    label: Development upstream URL
+    description: HTTPS on port 443, no credentials/query/fragment. Host must already be approved for this exact
+      cloud/exposure/stage.
+  validations:
+    required: true
+- type: input
+  id: test-upstream-url
+  attributes:
+    label: Test upstream URL
+    description: HTTPS on port 443, no credentials/query/fragment. Host must already be approved for this exact
+      cloud/exposure/stage.
+  validations:
+    required: true
+- type: input
+  id: preprod-upstream-url
+  attributes:
+    label: Preprod upstream URL
+    description: HTTPS on port 443, no credentials/query/fragment. Host must already be approved for this exact
+      cloud/exposure/stage.
+  validations:
+    required: true
+- type: input
+  id: production-upstream-url
+  attributes:
+    label: Production upstream URL
+    description: HTTPS on port 443, no credentials/query/fragment. Host must already be approved for this exact
+      cloud/exposure/stage.
+  validations:
+    required: true
+- type: dropdown
+  id: mcp-mode
+  attributes:
+    label: MCP mode
+    description: ''
+    options:
+    - passthrough-listener
+    - conversion-listener
+  validations:
+    required: true
+- type: dropdown
+  id: mcp-protocol-version
+  attributes:
+    label: MCP protocol version
+    description: ''
+    options:
+    - '2025-11-25'
+    - '2025-06-18'
+    - '2025-03-26'
+  validations:
+    required: true
+- type: textarea
+  id: expected-tool-names
+  attributes:
+    label: Expected tool names
+    description: One exact authorized tool name per line. Discovery is checked; no tool execution is enabled by
+      this form.
+  validations:
+    required: true
+- type: textarea
+  id: conversion-tools-json
+  attributes:
+    label: Conversion tools JSON
+    description: Required for conversion mode; otherwise blank. JSON array of Kong native tool definitions. Paths
+      must be relative to the approved upstream. No credentials.
+    render: json
+  validations:
+    required: false
+- type: checkboxes
+  id: security-confirmations
+  attributes:
+    label: Security confirmations
+    options:
+    - label: I have included no credentials, tokens, personal data, or confidential payloads.
+      required: true
+    - label: The platform team has approved the provider or upstream hosts for this lane.
+      required: true
+    - label: I understand that this request creates a draft PR and does not deploy immediately.
+      required: true

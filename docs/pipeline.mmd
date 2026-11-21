@@ -1,16 +1,16 @@
 flowchart TD
-    PR["Catalog or environment pull request"] --> CI["Strict input schemas + native Kong schemas + tests"]
-    CI --> Preview["Preview configuration artifact"]
-    Preview --> Merge["Review and merge to main"]
-    Merge --> Bundle["Build one immutable release bundle"]
-    Bundle --> Dev["Dev: plan, recheck, apply, readiness, smoke tests"]
-    Dev --> Stage["Staging: plan, approval, recheck, apply, verify"]
-    Stage --> Plan["Production plan and digest"]
-    Plan --> Approval["GitHub production environment approval"]
-    Approval --> Recheck{"Fresh plan matches reviewed digest?"}
-    Recheck -->|No| Stop["Stop and request a new reviewed run"]
-    Recheck -->|Yes| Apply["Apply configuration"]
-    Apply --> Verify["All data planes converge + protocol smoke tests"]
-    Verify --> Receipt["Deployment receipt"]
-    Recovery["Manual recovery from a prior successful release"] --> Plan
-    Drift["Daily read-only drift workflow"] --> Report["Diff summary; no mutation"]
+  Forms[Six forms: LLM / MCP / A2A × internal / external] --> Cloud[Choose AWS / Azure / GCP]
+  Cloud --> Intake[Strict parser + schema + policy + secret scan]
+  Intake --> PR[Draft PR: catalog + four scoped upstream mappings]
+  PR --> CI[Read-only CI: tests + security checks + review]
+  CI --> Main[Protected main]
+  Main --> Build[Build release: immutable bundle / 24 targets / US]
+  Build -. same original release run ID .-> Dev[Independent trigger: Deploy dev]
+  Build -. same original release run ID .-> Test[Independent trigger: Deploy test]
+  Build -. same original release run ID .-> Preprod[Independent trigger: Deploy preprod]
+  Build -. same original release run ID .-> Prod[Independent trigger: Deploy prod]
+  Dev -. successful dev evidence required .-> Test
+  Test -. successful test evidence required .-> Preprod
+  Preprod -. successful preprod evidence required .-> Prod
+  Note[Every dispatch: security and provenance checks → plan → target approval → apply → readiness and smoke → verified receipt]
+  Manual[No automatic stage chaining. Each run selects exactly one cloud / exposure / stage.]

@@ -13,3 +13,7 @@ spec:
     expected_tools:
     - ticket_get
     - ticket_search
+placement:
+  cloud: aws
+  exposure: internal
+  data_classification: internal

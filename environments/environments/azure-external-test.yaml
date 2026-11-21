@@ -1,0 +1,37 @@
+product: kong-ai-gateway
+runtime_version: 2.3.1
+region: us
+gateway_id: 00000000-0000-0000-0000-000000000000
+namespace: ai-azure-external-test
+auth_strategy_id: 00000000-0000-0000-0000-000000000000
+proxy_url: https://azure-external-test.example.invalid
+consumer_groups:
+- ai-onboarding-testers
+policy_profiles:
+  llm-standard: []
+  mcp-standard: []
+  a2a-standard: []
+upstreams: {}
+smoke_auth_header: Authorization
+minimum_nodes: 2
+heartbeat_max_age_seconds: 120
+readiness_timeout_seconds: 300
+cloud: azure
+exposure: external
+stage: test
+enabled: false
+cloud_scope: REPLACE_WITH_ACCOUNT_SUBSCRIPTION_OR_PROJECT
+allowed_upstream_hosts:
+- api.openai.com
+approved_providers:
+- openai
+allowed_data_classes:
+- public
+controls:
+  private_ingress_verified: false
+  public_edge_verified: false
+  egress_restricted: false
+  request_limits: false
+  audit_redaction: false
+  upstream_tls_verified: false
+security_review_url: ''

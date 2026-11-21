@@ -1,0 +1,9 @@
+# Replace organization/team names, then rename this file to CODEOWNERS.
+* @YOUR-ORG/platform-team
+/.github/ @YOUR-ORG/platform-team @YOUR-ORG/security-team
+/aiops/ @YOUR-ORG/platform-team @YOUR-ORG/security-team
+/scripts/ @YOUR-ORG/platform-team @YOUR-ORG/security-team
+/environments/ @YOUR-ORG/platform-team @YOUR-ORG/security-team
+/schemas/ @YOUR-ORG/platform-team @YOUR-ORG/security-team
+/requirements* @YOUR-ORG/platform-team @YOUR-ORG/security-team
+/toolchain.lock.json @YOUR-ORG/platform-team @YOUR-ORG/security-team

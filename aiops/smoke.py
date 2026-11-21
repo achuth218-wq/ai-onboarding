@@ -8,6 +8,7 @@ from urllib.error import HTTPError
 from urllib.parse import urlsplit
 from urllib.request import HTTPRedirectHandler, Request, build_opener
 
+from .policy import selected
 from .common import Error, required
 
 
@@ -131,4 +132,4 @@ def smoke(bundle, environment):
     required(value and "\n" not in value and "\r" not in value, "SMOKE_AUTH_VALUE is required")
     auth = {env["smoke_auth_header"]: value}
     resources = json.loads((Path(bundle) / "catalog.json").read_text())
-    return [probe(resource, env, auth) for resource in resources]
+    return [probe(resource, env, auth) for resource in selected(resources, env)]

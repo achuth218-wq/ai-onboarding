@@ -14,3 +14,7 @@ spec:
   smoke:
     prompt: Reply with the word ready.
     stream: true
+placement:
+  cloud: aws
+  exposure: internal
+  data_classification: internal

@@ -1,0 +1,135 @@
+name: LLM — Internal (AWS / Azure / GCP)
+description: Request internal LLM onboarding through a reviewed draft PR.
+title: '[LLM internal] '
+body:
+- type: markdown
+  attributes:
+    value: '## Internal LLM onboarding
+
+      Choose the cloud hosting the gateway data plane. This is a request for dev → test → preprod → prod in one
+      isolated lane. Konnect region is US. **Never paste secrets, personal data, or confidential prompts. Use a
+      private repository for internal infrastructure details.**
+
+
+      Internal means private gateway ingress; external means an authenticated public edge with WAF/DDoS and rate
+      controls. Cloud selection does not select an LLM provider or create cloud infrastructure. Platform allowlists
+      and network controls must be approved first.'
+- type: dropdown
+  id: resource-type
+  attributes:
+    label: Resource type
+    description: ''
+    options:
+    - LLM
+  validations:
+    required: true
+- type: dropdown
+  id: exposure
+  attributes:
+    label: Exposure
+    description: ''
+    options:
+    - internal
+  validations:
+    required: true
+- type: dropdown
+  id: cloud
+  attributes:
+    label: Cloud
+    description: Gateway hosting cloud, separate from model provider.
+    options:
+    - aws
+    - azure
+    - gcp
+  validations:
+    required: true
+- type: input
+  id: resource-name
+  attributes:
+    label: Resource name
+    description: Unique lowercase letters, digits and hyphens; 2–51 characters.
+    placeholder: support-assistant
+  validations:
+    required: true
+- type: input
+  id: owner-team
+  attributes:
+    label: Owner team
+    description: Team slug for operational ownership, not an email or token.
+    placeholder: support-platform
+  validations:
+    required: true
+- type: input
+  id: route-prefix
+  attributes:
+    label: Route prefix
+    description: Lowercase HTTPS route prefix; must not overlap another route in this lane.
+    placeholder: /llm/support
+  validations:
+    required: true
+- type: dropdown
+  id: data-classification
+  attributes:
+    label: Data classification
+    description: Platform policy is enforced. External defaults to public only; restricted is denied by default
+      everywhere.
+    options:
+    - public
+    - internal
+    - confidential
+    - restricted
+  validations:
+    required: true
+- type: dropdown
+  id: provider
+  attributes:
+    label: Provider
+    description: Only providers approved in all four target files are accepted. This adapter supports header authentication;
+      AWS Bedrock IAM and Vertex IAM need an adapter extension.
+    options:
+    - openai
+    - azure
+    - anthropic
+    - gemini
+  validations:
+    required: true
+- type: input
+  id: model
+  attributes:
+    label: Model
+    description: Provider model or deployment name.
+    placeholder: gpt-4o
+  validations:
+    required: true
+- type: dropdown
+  id: credential-header
+  attributes:
+    label: Credential header
+    description: Value comes from the individual AIOPS_LLM_AUTH_HEADER GitHub Environment secret, never this issue.
+    options:
+    - Authorization
+    - api-key
+    - x-api-key
+    - x-goog-api-key
+  validations:
+    required: true
+- type: textarea
+  id: provider-options-json
+  attributes:
+    label: Provider options JSON
+    description: Optional native target options such as an approved upstream_url. Do not include credentials. Blank
+      means {}.
+    render: json
+  validations:
+    required: false
+- type: checkboxes
+  id: security-confirmations
+  attributes:
+    label: Security confirmations
+    options:
+    - label: I have included no credentials, tokens, personal data, or confidential payloads.
+      required: true
+    - label: The platform team has approved the provider or upstream hosts for this lane.
+      required: true
+    - label: I understand that this request creates a draft PR and does not deploy immediately.
+      required: true

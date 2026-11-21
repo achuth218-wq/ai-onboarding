@@ -1,0 +1,404 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "apiVersion": {
+          "const": "platform.example.com/v1alpha1"
+        },
+        "kind": {
+          "const": "LLM"
+        },
+        "metadata": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9-]{1,50}$"
+            },
+            "owner": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9-]{1,50}$"
+            }
+          },
+          "required": [
+            "name",
+            "owner"
+          ],
+          "additionalProperties": false
+        },
+        "spec": {
+          "type": "object",
+          "properties": {
+            "path": {
+              "type": "string",
+              "pattern": "^/[a-z0-9][a-z0-9/-]*[a-z0-9]$"
+            },
+            "policy_profile": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9-]{1,50}$"
+            },
+            "provider": {
+              "type": "string",
+              "minLength": 1
+            },
+            "model": {
+              "type": "string",
+              "minLength": 1
+            },
+            "credential_env": {
+              "type": "string",
+              "pattern": "^AIOPS_[A-Z0-9_]+$"
+            },
+            "smoke": {
+              "type": "object",
+              "properties": {
+                "prompt": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "stream": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "prompt",
+                "stream"
+              ],
+              "additionalProperties": false
+            },
+            "credential_header": {
+              "type": "string",
+              "pattern": "^[A-Za-z][A-Za-z0-9-]*$"
+            },
+            "provider_options": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "path",
+            "policy_profile",
+            "provider",
+            "model",
+            "credential_env",
+            "smoke",
+            "credential_header",
+            "provider_options"
+          ],
+          "additionalProperties": false
+        },
+        "placement": {
+          "type": "object",
+          "properties": {
+            "cloud": {
+              "enum": [
+                "aws",
+                "azure",
+                "gcp"
+              ]
+            },
+            "exposure": {
+              "enum": [
+                "internal",
+                "external"
+              ]
+            },
+            "data_classification": {
+              "enum": [
+                "public",
+                "internal",
+                "confidential",
+                "restricted"
+              ]
+            }
+          },
+          "required": [
+            "cloud",
+            "exposure",
+            "data_classification"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "apiVersion",
+        "kind",
+        "metadata",
+        "spec",
+        "placement"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "apiVersion": {
+          "const": "platform.example.com/v1alpha1"
+        },
+        "kind": {
+          "const": "MCP"
+        },
+        "metadata": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9-]{1,50}$"
+            },
+            "owner": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9-]{1,50}$"
+            }
+          },
+          "required": [
+            "name",
+            "owner"
+          ],
+          "additionalProperties": false
+        },
+        "spec": {
+          "type": "object",
+          "properties": {
+            "path": {
+              "type": "string",
+              "pattern": "^/[a-z0-9][a-z0-9/-]*[a-z0-9]$"
+            },
+            "policy_profile": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9-]{1,50}$"
+            },
+            "upstream_ref": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9-]{1,50}$"
+            },
+            "mode": {
+              "enum": [
+                "passthrough-listener",
+                "conversion-listener"
+              ]
+            },
+            "protocol_version": {
+              "enum": [
+                "2025-03-26",
+                "2025-06-18",
+                "2025-11-25"
+              ]
+            },
+            "tools": {
+              "type": "array",
+              "items": {
+                "type": "object"
+              },
+              "minItems": 1,
+              "uniqueItems": true
+            },
+            "smoke": {
+              "type": "object",
+              "properties": {
+                "expected_tools": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "minItems": 1,
+                  "uniqueItems": true
+                },
+                "readonly_call": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "arguments": {
+                      "type": "object"
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "arguments"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "expected_tools"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "path",
+            "policy_profile",
+            "upstream_ref",
+            "mode",
+            "protocol_version",
+            "smoke"
+          ],
+          "additionalProperties": false
+        },
+        "placement": {
+          "type": "object",
+          "properties": {
+            "cloud": {
+              "enum": [
+                "aws",
+                "azure",
+                "gcp"
+              ]
+            },
+            "exposure": {
+              "enum": [
+                "internal",
+                "external"
+              ]
+            },
+            "data_classification": {
+              "enum": [
+                "public",
+                "internal",
+                "confidential",
+                "restricted"
+              ]
+            }
+          },
+          "required": [
+            "cloud",
+            "exposure",
+            "data_classification"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "apiVersion",
+        "kind",
+        "metadata",
+        "spec",
+        "placement"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "apiVersion": {
+          "const": "platform.example.com/v1alpha1"
+        },
+        "kind": {
+          "const": "A2A"
+        },
+        "metadata": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9-]{1,50}$"
+            },
+            "owner": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9-]{1,50}$"
+            }
+          },
+          "required": [
+            "name",
+            "owner"
+          ],
+          "additionalProperties": false
+        },
+        "spec": {
+          "type": "object",
+          "properties": {
+            "path": {
+              "type": "string",
+              "pattern": "^/[a-z0-9][a-z0-9/-]*[a-z0-9]$"
+            },
+            "policy_profile": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9-]{1,50}$"
+            },
+            "upstream_ref": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9-]{1,50}$"
+            },
+            "protocol_version": {
+              "const": "0.3.0"
+            },
+            "smoke": {
+              "type": "object",
+              "properties": {
+                "expected_skills": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "minItems": 1,
+                  "uniqueItems": true
+                },
+                "readonly_message": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "expected_skills"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "path",
+            "policy_profile",
+            "upstream_ref",
+            "protocol_version",
+            "smoke"
+          ],
+          "additionalProperties": false
+        },
+        "placement": {
+          "type": "object",
+          "properties": {
+            "cloud": {
+              "enum": [
+                "aws",
+                "azure",
+                "gcp"
+              ]
+            },
+            "exposure": {
+              "enum": [
+                "internal",
+                "external"
+              ]
+            },
+            "data_classification": {
+              "enum": [
+                "public",
+                "internal",
+                "confidential",
+                "restricted"
+              ]
+            }
+          },
+          "required": [
+            "cloud",
+            "exposure",
+            "data_classification"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "apiVersion",
+        "kind",
+        "metadata",
+        "spec",
+        "placement"
+      ],
+      "additionalProperties": false
+    }
+  ]
+}

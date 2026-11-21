@@ -8,11 +8,14 @@ from .build import build, load_source, validate_native, verify_bundle
 from .adapters import render
 from .common import Error
 from .deploy import apply_plan, review_plan
+from .policy import TARGETS, enabled_lanes, enabled_targets
 
 def main():
     parser = argparse.ArgumentParser(description="Konnect AI Gateway onboarding")
     commands = parser.add_subparsers(dest="command", required=True)
     p = commands.add_parser("validate")
+    p.add_argument("--source", default=".")
+    p = commands.add_parser("targets")
     p.add_argument("--source", default=".")
     p = commands.add_parser("build")
     p.add_argument("--source", default=".")
@@ -23,7 +26,7 @@ def main():
     for verb in ("plan", "apply", "drift", "smoke"):
         p = commands.add_parser(verb)
         p.add_argument("--bundle", default="build/release")
-        p.add_argument("--environment", choices=["dev", "staging", "prod"], required=True)
+        p.add_argument("--environment", choices=TARGETS, required=True)
         if verb != "smoke":
             p.add_argument("--output", default="build/receipt.json")
         if verb == "apply":
@@ -34,6 +37,15 @@ def main():
         for env in environments.values():
             validate_native(render(resources, env))
         print(f"Validated {len(resources)} resources across {len(environments)} environments")
+    elif args.command == "targets":
+        resources, environments = load_source(args.source)
+        lanes = enabled_lanes(resources, environments)
+        print(json.dumps(lanes))
+        if os.environ.get("GITHUB_OUTPUT"):
+            with open(os.environ["GITHUB_OUTPUT"], "a") as f:
+                f.write("lanes=" + json.dumps(lanes) + "\n")
+                f.write("has_targets=" + str(bool(lanes)).lower() + "\n")
+                f.write("targets=" + json.dumps(enabled_targets(resources, environments)) + "\n")
     elif args.command == "build":
         print(build(args.source, args.output, args.revision))
     elif args.command == "verify":
