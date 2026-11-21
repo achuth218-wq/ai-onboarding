@@ -47,14 +47,14 @@ jobs:
         PREVIOUS_RUN_ID: ${{ inputs.previous_run_id }}
         PROMOTION_MODE: ${{ inputs.mode }}
       run: python scripts/promotion_gate.py discover
-    - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+    - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333
       with:
         artifact-ids: ${{ steps.provenance.outputs.source_artifact_id }}
         run-id: ${{ inputs.release_run_id }}
         github-token: ${{ github.token }}
         path: build/release
         merge-multiple: true
-    - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+    - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333
       if: steps.provenance.outputs.previous_artifact_id != ''
       with:
         artifact-ids: ${{ steps.provenance.outputs.previous_artifact_id }}
@@ -95,11 +95,11 @@ jobs:
       with:
         python-version: '3.12'
     - run: 'python -m pip install --require-hashes --only-binary=:all: -r requirements.lock'
-    - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+    - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333
       with:
         name: promotion-context
         path: build/context
-    - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+    - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333
       with:
         name: deployment-${{ inputs.lane }}-${{ inputs.stage }}
         path: build/deployment
