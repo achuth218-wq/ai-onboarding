@@ -32,6 +32,6 @@ rpds-py==0.22.3
 sortedcontainers==2.4.0
 stevedore==5.5.0
 toml==0.10.2
-typing_extensions==4.12.2
+typing_extensions==4.16.0
 urllib3==2.8.0
 pip==26.3
