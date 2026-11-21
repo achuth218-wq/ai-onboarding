@@ -17,4 +17,4 @@ spec:
 placement:
   cloud: aws
   exposure: internal
-  data_classification: internal
+  data_classification: external
